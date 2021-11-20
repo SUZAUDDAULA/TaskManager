@@ -1,10 +1,15 @@
 ﻿
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using TaskManager.DAL.Models.Auth;
+using TaskManager.Domain.AuthService.Interfaces;
+
 
 namespace TaskManager.Domain.AuthService
 {
-    public class JwtFactoryService
+    public class JwtFactoryService//: IJwtFactoryService
     {
         public readonly JwtIssuerOptions _jwtIssuerOption;
 
