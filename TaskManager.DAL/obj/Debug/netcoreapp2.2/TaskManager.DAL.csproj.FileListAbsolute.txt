@@ -1,0 +1,12 @@
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.DAL\bin\Debug\netcoreapp2.2\TaskManager.DAL.deps.json
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.DAL\bin\Debug\netcoreapp2.2\TaskManager.DAL.runtimeconfig.json
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.DAL\bin\Debug\netcoreapp2.2\TaskManager.DAL.runtimeconfig.dev.json
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.DAL\bin\Debug\netcoreapp2.2\TaskManager.DAL.dll
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.DAL\bin\Debug\netcoreapp2.2\TaskManager.DAL.pdb
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.DAL\obj\Debug\netcoreapp2.2\TaskManager.DAL.AssemblyInfoInputs.cache
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.DAL\obj\Debug\netcoreapp2.2\TaskManager.DAL.AssemblyInfo.cs
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.DAL\obj\Debug\netcoreapp2.2\TaskManager.DAL.csproj.CoreCompileInputs.cache
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.DAL\obj\Debug\netcoreapp2.2\TaskManager.DAL.dll
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.DAL\obj\Debug\netcoreapp2.2\TaskManager.DAL.pdb
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.DAL\obj\Debug\netcoreapp2.2\TaskManager.DAL.genruntimeconfig.cache
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.DAL\obj\Debug\netcoreapp2.2\TaskManager.DAL.csprojAssemblyReference.cache

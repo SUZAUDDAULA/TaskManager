@@ -1,0 +1,12 @@
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.Domain\obj\Debug\netcoreapp2.2\TaskManager.Domain.csprojAssemblyReference.cache
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.Domain\obj\Debug\netcoreapp2.2\TaskManager.Domain.AssemblyInfoInputs.cache
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.Domain\obj\Debug\netcoreapp2.2\TaskManager.Domain.AssemblyInfo.cs
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.Domain\obj\Debug\netcoreapp2.2\TaskManager.Domain.csproj.CoreCompileInputs.cache
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.Domain\bin\Debug\netcoreapp2.2\TaskManager.Domain.deps.json
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.Domain\bin\Debug\netcoreapp2.2\TaskManager.Domain.dll
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.Domain\bin\Debug\netcoreapp2.2\TaskManager.Domain.pdb
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.Domain\bin\Debug\netcoreapp2.2\TaskManager.DAL.dll
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.Domain\bin\Debug\netcoreapp2.2\TaskManager.DAL.pdb
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.Domain\obj\Debug\netcoreapp2.2\TaskManager.Domain.csproj.CopyComplete
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.Domain\obj\Debug\netcoreapp2.2\TaskManager.Domain.dll
+D:\Development\SelfDevelopment\TaskManager_Project\TaskManager\TaskManager.Domain\obj\Debug\netcoreapp2.2\TaskManager.Domain.pdb
