@@ -61,7 +61,7 @@ namespace TaskManager.Web
 
             services.AddHttpContextAccessor();
 
-            #region ERP Database Settings
+            #region TM Database Settings
             services.AddDbContext<TMDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("TMConnection")));
@@ -179,6 +179,47 @@ namespace TaskManager.Web
             app.UseSession();
             app.UseStaticFiles();
             app.UseAuthentication();
+
+            //IServiceScopeFactory serviceScopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            //using (IServiceScope scope = serviceScopeFactory.CreateScope())
+            //{
+            //    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+            //    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+            //    //Create Admin Role
+            //    if (!(await roleManager.RoleExistsAsync("Admin")))
+            //    {
+            //        var role = new ApplicationRole();
+            //        role.Name = "Admin";
+            //        await roleManager.CreateAsync(role);
+            //    }
+
+            //    //Create Admin User
+            //    if ((await userManager.FindByNameAsync("admin")) == null)
+            //    {
+            //        var user = new ApplicationUser();
+            //        user.UserName = "admin";
+            //        user.Email = "admin@gmail.com";
+            //        var userPassword = "Admin123#";
+            //        var chkUser = await userManager.CreateAsync(user, userPassword);
+            //        if (chkUser.Succeeded)
+            //        {
+            //            await userManager.AddToRoleAsync(user, "Admin");
+            //        }
+            //    }
+            //    if (!(await userManager.IsInRoleAsync(await userManager.FindByNameAsync("admin"), "Admin")))
+            //    {
+            //        await userManager.AddToRoleAsync(await userManager.FindByNameAsync("admin"), "Admin");
+            //    }
+
+            //    //Create Employee Role
+            //    if (!(await roleManager.RoleExistsAsync("Employee")))
+            //    {
+            //        var role = new ApplicationRole();
+            //        role.Name = "Employee";
+            //        await roleManager.CreateAsync(role);
+            //    }
+            //}
 
             app.UseMvc(routes =>
             {
