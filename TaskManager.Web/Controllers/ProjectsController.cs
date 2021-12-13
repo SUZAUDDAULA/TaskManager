@@ -96,5 +96,30 @@ namespace TaskManager.Web.Controllers
 
         }
 
+        [HttpGet]
+        [Route("api/projectss/Search/{searchBy}/{searchText}")]
+        public List<Project> Search(string searchBy,string searchText)
+        {
+            try
+            {
+                List<Project> projects = null;
+                if(searchBy== "ProjectCode")
+                    projects = _projectRepo.GetAll().Where(x => x.projectCode.ToString().Contains(searchText)).ToList();
+                else if (searchBy=="ProjectName")
+                    projects= _projectRepo.GetAll().Where(x => x.projectName.ToString().Contains(searchText)).ToList();
+                else if(searchBy=="StartDate")
+                    projects = _projectRepo.GetAll().Where(x => x.startDate.ToString().Contains(searchText)).ToList();
+                else if (searchBy == "TeamSize")
+                    projects = _projectRepo.GetAll().Where(x => x.teamSize.ToString().Contains(searchText)).ToList();
+
+                return projects;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
     }
 }
