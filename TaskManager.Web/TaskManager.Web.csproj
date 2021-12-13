@@ -32,7 +32,7 @@
 
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <Folder Include="Areas\" />
   </ItemGroup>
 
 </Project>
