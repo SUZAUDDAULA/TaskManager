@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using TaskManager.DAL.Entity.Auth;
 
 namespace TaskManager.DAL.Entity
@@ -18,5 +19,10 @@ namespace TaskManager.DAL.Entity
         public DateTime? updatedAt { get; set; }
         [MaxLength(120)]
         public string updatedBy { get; set; }
+        [NotMapped]
+        public string Token { get; set; }
+
+        [NotMapped]
+        public string Role { get; set; }
     }
 }
