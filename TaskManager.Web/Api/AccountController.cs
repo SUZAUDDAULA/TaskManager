@@ -11,7 +11,7 @@ using TaskManager.Web.Models;
 
 namespace TaskManager.Web.Api
 {
-    [Route("api/[controller]/Action")]
+    [Route("api/[controller]/[Action]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -28,12 +28,13 @@ namespace TaskManager.Web.Api
             this.userInfoes = userInfoes;
         }
 
+        //api/Account/Login
         [HttpPost]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Login([FromBody]LoginViewModel model)
         {
             var user = await userInfoes.GetUserInfoByUser(model.UserName);
-            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: true);
+            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, lockoutOnFailure: true);
             if (result.Succeeded)
             {
                 return Ok(user);
