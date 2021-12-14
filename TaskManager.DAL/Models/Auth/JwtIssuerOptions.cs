@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,6 @@ namespace TaskManager.DAL.Models.Auth
         public Func<Task<String>> JtiGenerator =>
         () => Task.FromResult(Guid.NewGuid().ToString());
 
-        //public SigningCredentials SigningCredentials { get; set; }
+        public SigningCredentials SigningCredentials { get; set; }
     }
 }

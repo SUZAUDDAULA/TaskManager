@@ -236,7 +236,7 @@ class LoginComponent {
             this.router.navigateByUrl('/dashboard');
         }, (error) => {
             console.log(error);
-            this.loginError = 'Invalid Username or Passord';
+            this.loginError = 'Invalid Username or Password';
         });
     }
 }
@@ -408,11 +408,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 class ProjectsService {
     constructor(httpClient) {
         this.httpClient = httpClient;
     }
     getAllProjects() {
+        let currentUser = { token: '' };
+        let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]();
+        if (sessionStorage.currentUser != null) {
+            currentUser = JSON.parse(sessionStorage.currentUser);
+            headers = headers.set('Authorization', 'Bearer' + currentUser.token);
+        }
         return this.httpClient.get('/api/masterData/project');
         // return this.httpClient.get<Project[]>('http://localhost:3000/projects', {responseType: 'json'});
     }
@@ -471,12 +478,15 @@ class LoginService {
         return this.httpClient.post('/api/Account/Login', loginViewModel, { responseType: 'json' })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])(user => {
             if (user) {
-                this.currentUserName = user.UserName;
+                console.log(user);
+                this.currentUserName = user.userInfo.UserName;
+                sessionStorage.currentUser = JSON.stringify(user);
             }
             return user;
         }));
     }
     Logout() {
+        sessionStorage.removeItem('currentUser');
         this.currentUserName = null;
     }
 }
@@ -560,6 +570,9 @@ class ProjectsComponent {
     ngOnInit() {
         this.projectService.getAllProjects().subscribe((response) => {
             this.projects = response;
+        }, (error) => {
+            console.log(error);
+            alert('Authorization failed');
         });
     }
     onSaveClick() {
@@ -1000,7 +1013,7 @@ function AppComponent_li_29_Template(rf, ctx) { if (rf & 1) {
     const _r6 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "li", 8);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "a", 30);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AppComponent_li_29_Template_a_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r6); const ctx_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r5.loginservice.Logout(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function AppComponent_li_29_Template_a_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r6); const ctx_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r5.loginService.Logout(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Logout");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();

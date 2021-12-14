@@ -1,22 +1,21 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DinkToPdf;
 using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
+using System;
+using System.Text;
 using TaskManager.DAL;
 using TaskManager.DAL.Entity;
+using TaskManager.DAL.Models.Auth;
 using TaskManager.Domain.AuthService;
 using TaskManager.Domain.AuthService.Interfaces;
 using TaskManager.Domain.RepositoryService;
@@ -74,33 +73,35 @@ namespace TaskManager.Web
             #endregion
 
             #region Auth JWT
-            //services.AddSingleton<IJwtFactoryService, JwtFactoryService>();
-            //var jwtAppsettingsOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
 
-            //SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtAppsettingsOptions["SecreatKey"]));
+            services.AddSingleton<IJwtFactoryService, JwtFactoryService>();
+            var jwtAppsettingsOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
 
-            //services.Configure<JwtIssuerOptions>(Options =>
-            //{
-            //    Options.Issuer = jwtAppsettingsOptions[nameof(JwtIssuerOptions.Issuer)];
-            //    Options.Audience = jwtAppsettingsOptions[nameof(JwtIssuerOptions.Audience)];
-            //    Options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
-            //});
+            SymmetricSecurityKey _signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtAppsettingsOptions["SecreatKey"]));
 
-            //var tokenValidationParameters = new TokenValidationParameters
-            //{
-            //    ValidateIssuer = true,
-            //    ValidIssuer = jwtAppsettingsOptions[nameof(JwtIssuerOptions.Issuer)],
+            services.Configure<JwtIssuerOptions>(Options =>
+            {
+                Options.Issuer = jwtAppsettingsOptions[nameof(JwtIssuerOptions.Issuer)];
+                Options.Audience = jwtAppsettingsOptions[nameof(JwtIssuerOptions.Audience)];
+                Options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
+            });
 
-            //    ValidateAudience = true,
-            //    ValidAudience = jwtAppsettingsOptions[nameof(JwtIssuerOptions.Audience)],
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidIssuer = jwtAppsettingsOptions[nameof(JwtIssuerOptions.Issuer)],
 
-            //    ValidateIssuerSigningKey = true,
-            //    IssuerSigningKey = _signingKey,
+                ValidateAudience = true,
+                ValidAudience = jwtAppsettingsOptions[nameof(JwtIssuerOptions.Audience)],
 
-            //    RequireExpirationTime = false,
-            //    ValidateLifetime = true,
-            //    ClockSkew = TimeSpan.Zero
-            //};
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = _signingKey,
+
+                RequireExpirationTime = false,
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero
+            };
+
             #endregion
 
             #region Auth Related Settings
@@ -116,7 +117,7 @@ namespace TaskManager.Web
 
                 // Lockout settings.
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.MaxFailedAccessAttempts = 3;
                 options.Lockout.AllowedForNewUsers = true;
 
                 // User settings.
@@ -124,19 +125,7 @@ namespace TaskManager.Web
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
             });
-
-            services.ConfigureApplicationCookie(options =>
-            {
-                // Cookie settings
-                options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromHours(1);
-
-                options.LoginPath = "/Auth/Account/Login";
-                options.AccessDeniedPath = "/Auth/Account/AccessDenied";
-                options.SlidingExpiration = true;
-            });
             #endregion
-
             #region Areas Config
             services.Configure<RazorViewEngineOptions>(options =>
             {
