@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.DAL.Entity.Master;
 using TaskManager.DAL.Models.MasterData;
@@ -9,6 +10,7 @@ using TaskManager.Domain.RepositoryService.Interfaces;
 
 namespace TaskManager.Web.Controllers
 {
+    [Authorize]
     public class ProjectsController : Controller
     {
         private readonly IRepository<Project> _projectRepo;
