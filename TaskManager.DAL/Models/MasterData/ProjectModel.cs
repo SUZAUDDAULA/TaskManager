@@ -12,6 +12,8 @@ namespace TaskManager.DAL.Models.MasterData
         public string projectCode { get; set; }
         public string startDate { get; set; }
         public int? teamSize { get; set; }
+        public bool isActive { get; set; }
+        public string status { get; set; }
         public int? clientLocationId { get; set; }
         public ClientLocation clientLocation { get; set; }
     }

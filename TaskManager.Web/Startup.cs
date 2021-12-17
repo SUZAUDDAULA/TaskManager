@@ -90,13 +90,13 @@ namespace TaskManager.Web
 
             var tokenValidationParameters = new TokenValidationParameters
             {
-                ValidateIssuer = true,
+                ValidateIssuer = false,
                 ValidIssuer = jwtAppsettingsOptions[nameof(JwtIssuerOptions.Issuer)],
 
-                ValidateAudience = true,
+                ValidateAudience = false,
                 ValidAudience = jwtAppsettingsOptions[nameof(JwtIssuerOptions.Audience)],
 
-                ValidateIssuerSigningKey = true,
+                ValidateIssuerSigningKey = false,
                 IssuerSigningKey = _signingKey,
 
                 RequireExpirationTime = false,
@@ -108,18 +108,18 @@ namespace TaskManager.Web
             {
 
             })
-                .AddCookie()
+                //.AddCookie()
                 .AddJwtBearer(x =>
                 {
                     x.RequireHttpsMetadata = false;
                     x.TokenValidationParameters = tokenValidationParameters;
                 });
 
-            services.AddAntiforgery(forg =>
-            {
-                forg.Cookie.Name = "XSRF-Cookie-TOKEN";
-                forg.HeaderName = "X-XSRF-TOKEN";
-            });
+            //services.AddAntiforgery(forg =>
+            //{
+            //    forg.Cookie.Name = "XSRF-Cookie-TOKEN";
+            //    forg.HeaderName = "X-XSRF-TOKEN";
+            //});
             #endregion
 
             #region Auth Related Settings

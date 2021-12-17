@@ -23,7 +23,7 @@ namespace TaskManager.Web.Api
 
         //api/ClientLocations/GetClientLocation
         [HttpGet]
-        [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> GetClientLocation()
         {
             var result = await _pojectService.GetClientLocationList();

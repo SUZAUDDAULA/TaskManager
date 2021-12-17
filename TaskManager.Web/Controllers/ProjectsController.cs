@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.DAL.Entity.Master;
@@ -30,10 +31,11 @@ namespace TaskManager.Web.Controllers
         }
 
         [HttpGet]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [Route("api/masterData/project")]
-        public IActionResult GetAllProjectInfo()
+        public async Task<IActionResult> GetAllProjectInfo()
         {
-            var projects = _projectRepo.GetAll();
+            var projects = await _projectService.GetAllProjectListWithClientLocation();
             return Json(projects);
         }
 
@@ -50,9 +52,12 @@ namespace TaskManager.Web.Controllers
                     projectName = model.projectName,
                     startDate = Convert.ToDateTime(model.startDate),
                     teamSize = model.teamSize,
+                    status=model.status,
+                    isActive=model.isActive,
                     clientLocationId=model.clientLocationId
                 };
-                await _projectService.SaveProject(project);
+                int projectId= await _projectService.SaveProject(project);
+                var projectInfo = await _projectService.GetProjectDetailsInfoById(projectId);
                 return Json(project);
             }
             catch(Exception ex)
@@ -74,7 +79,10 @@ namespace TaskManager.Web.Controllers
                     projectCode=model.projectCode,
                     projectName = model.projectName,
                     startDate = Convert.ToDateTime(model.startDate),
-                    teamSize = model.teamSize
+                    teamSize = model.teamSize,
+                    isActive=model.isActive,
+                    status=model.status,
+                    clientLocationId=model.clientLocationId
                 };
                 _projectRepo.Update(project);
                 var projectInfo = await _projectService.GetProjectDetailsInfoById((int)model.Id);

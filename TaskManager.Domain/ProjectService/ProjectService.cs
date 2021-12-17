@@ -51,6 +51,8 @@ namespace TaskManager.Domain.ProjectService
                     projectCode = x.projectCode,
                     startDate = Convert.ToDateTime(x.startDate).ToString("dd-MM-yyyy"),
                     teamSize = x.teamSize,
+                    isActive=x.isActive,
+                    status=x.status,
                     clientLocationId = x.clientLocationId,
                     clientLocation = x.clientLocation
                 }).FirstOrDefaultAsync();
@@ -67,7 +69,9 @@ namespace TaskManager.Domain.ProjectService
                     projectCode=x.projectCode,
                     startDate=Convert.ToDateTime(x.startDate).ToString("dd-MM-yyyy"),
                     teamSize=x.teamSize,
-                    clientLocationId=x.clientLocationId,
+                    isActive = x.isActive,
+                    status = x.status,
+                    clientLocationId =x.clientLocationId,
                     clientLocation=x.clientLocation
                 }).ToListAsync();
 
@@ -89,6 +93,8 @@ namespace TaskManager.Domain.ProjectService
                                         projectCode = p.projectCode,
                                         startDate = Convert.ToDateTime(p.startDate).ToString("dd-MM-yyyy"),
                                         teamSize = p.teamSize,
+                                        isActive = p.isActive,
+                                        status = p.status,
                                         clientLocationId = p.clientLocationId,
                                         clientLocation = p.clientLocation
                                     }).ToListAsync();
@@ -105,6 +111,8 @@ namespace TaskManager.Domain.ProjectService
                                         projectCode = p.projectCode,
                                         startDate = Convert.ToDateTime(p.startDate).ToString("dd-MM-yyyy"),
                                         teamSize = p.teamSize,
+                                        isActive = p.isActive,
+                                        status = p.status,
                                         clientLocationId = p.clientLocationId,
                                         clientLocation = p.clientLocation
                                     }).ToListAsync();
@@ -121,6 +129,8 @@ namespace TaskManager.Domain.ProjectService
                                         projectCode = p.projectCode,
                                         startDate = Convert.ToDateTime(p.startDate).ToString("dd-MM-yyyy"),
                                         teamSize = p.teamSize,
+                                        isActive = p.isActive,
+                                        status = p.status,
                                         clientLocationId = p.clientLocationId,
                                         clientLocation = p.clientLocation
                                     }).ToListAsync();
@@ -137,6 +147,8 @@ namespace TaskManager.Domain.ProjectService
                                         projectCode = p.projectCode,
                                         startDate = Convert.ToDateTime(p.startDate).ToString("dd-MM-yyyy"),
                                         teamSize = p.teamSize,
+                                        isActive = p.isActive,
+                                        status = p.status,
                                         clientLocationId = p.clientLocationId,
                                         clientLocation = p.clientLocation
                                     }).ToListAsync();
@@ -152,6 +164,8 @@ namespace TaskManager.Domain.ProjectService
                                         projectCode = p.projectCode,
                                         startDate = Convert.ToDateTime(p.startDate).ToString("dd-MM-yyyy"),
                                         teamSize = p.teamSize,
+                                        isActive = p.isActive,
+                                        status = p.status,
                                         clientLocationId = p.clientLocationId,
                                         clientLocation = p.clientLocation
                                     }).ToListAsync();
