@@ -18,6 +18,8 @@ using TaskManager.DAL.Entity;
 using TaskManager.DAL.Models.Auth;
 using TaskManager.Domain.AuthService;
 using TaskManager.Domain.AuthService.Interfaces;
+using TaskManager.Domain.ProjectService;
+using TaskManager.Domain.ProjectService.interfaces;
 using TaskManager.Domain.RepositoryService;
 using TaskManager.Domain.RepositoryService.Interfaces;
 
@@ -162,6 +164,9 @@ namespace TaskManager.Web
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             #endregion
 
+            #region Task Data
+            services.AddScoped<IProjectService, ProjectService>();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

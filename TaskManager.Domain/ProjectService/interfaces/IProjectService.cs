@@ -13,5 +13,6 @@ namespace TaskManager.Domain.ProjectService.interfaces
         Task<ProjectModel> GetProjectDetailsInfoById(int projectId);
         Task<IEnumerable<ProjectModel>> GetAllProjectListWithClientLocation();
         Task<IEnumerable<ProjectModel>> GetProjectListWithFiltering(string searchBy, string searchText);
+        Task<IEnumerable<ClientLocation>> GetClientLocationList();
     }
 }

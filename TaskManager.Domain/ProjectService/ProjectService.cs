@@ -161,5 +161,11 @@ namespace TaskManager.Domain.ProjectService
             return lstProject;
         }
 
+        public async Task<IEnumerable<ClientLocation>> GetClientLocationList()
+        {
+            var result = await _context.ClientLocations.ToListAsync();
+            return result;
+        }
+
     }
 }

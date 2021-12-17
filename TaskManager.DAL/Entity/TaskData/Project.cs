@@ -13,7 +13,11 @@ namespace TaskManager.DAL.Entity.TaskData
         public string projectCode { get; set; }
         public DateTime? startDate { get; set; }
         public int? teamSize { get; set; }
+        public bool isActive { get; set; }
+        [Column(TypeName = "NVARCHAR(100)")]
+        public string status { get; set; }
         public int? clientLocationId { get; set; }
         public ClientLocation clientLocation { get; set; }
+
     }
 }
