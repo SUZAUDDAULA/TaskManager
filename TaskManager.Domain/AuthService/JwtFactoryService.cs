@@ -28,7 +28,7 @@ namespace TaskManager.Domain.AuthService
                 new Claim(JwtRegisteredClaimNames.Jti, await _jwtIssuerOption.JtiGenerator()),
                 new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtIssuerOption.IssuedAt).ToString(), ClaimValueTypes.Integer64),
                 new Claim("id", id),
-                new Claim("rol",roles[0])
+                new Claim("role",roles[0])
             };
 
             var jwt = new JwtSecurityToken(

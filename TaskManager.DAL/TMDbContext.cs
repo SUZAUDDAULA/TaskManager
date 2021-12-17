@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using TaskManager.DAL.Entity;
 using TaskManager.DAL.Entity.Auth;
 using TaskManager.DAL.Entity.Master;
+using TaskManager.DAL.Entity.TaskData;
 
 namespace TaskManager.DAL
 {
@@ -30,7 +31,6 @@ namespace TaskManager.DAL
         #endregion
 
         #region Master Data
-        public DbSet<Project> Projects { get; set; }
         public DbSet<Religion> Religions { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Division> Divisions { get; set; }
@@ -48,6 +48,11 @@ namespace TaskManager.DAL
         public DbSet<SpecialPrivilege> SpecialPrivileges { get; set; }
         public DbSet<TrainingCategory> TrainingCategories { get; set; }
         public DbSet<TrainingInstitute> TrainingInstitutes { get; set; }
+        #endregion
+
+        #region TaskData
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<ClientLocation> ClientLocations { get; set; }
         #endregion
 
         #region Settings Configs

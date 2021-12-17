@@ -101,7 +101,23 @@ namespace TaskManager.Web
                 ValidateLifetime = true,
                 ClockSkew = TimeSpan.Zero
             };
+            
+            services.AddAuthentication(x =>
+            {
 
+            })
+                .AddCookie()
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.TokenValidationParameters = tokenValidationParameters;
+                });
+
+            services.AddAntiforgery(forg =>
+            {
+                forg.Cookie.Name = "XSRF-Cookie-TOKEN";
+                forg.HeaderName = "X-XSRF-TOKEN";
+            });
             #endregion
 
             #region Auth Related Settings
@@ -125,6 +141,7 @@ namespace TaskManager.Web
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
             });
+            
             #endregion
             #region Areas Config
             services.Configure<RazorViewEngineOptions>(options =>

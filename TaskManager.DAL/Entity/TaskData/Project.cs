@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace TaskManager.DAL.Entity.Master
+namespace TaskManager.DAL.Entity.TaskData
 {
     public class Project:Base
     {
@@ -13,5 +13,7 @@ namespace TaskManager.DAL.Entity.Master
         public string projectCode { get; set; }
         public DateTime? startDate { get; set; }
         public int? teamSize { get; set; }
+        public int? clientLocationId { get; set; }
+        public ClientLocation clientLocation { get; set; }
     }
 }

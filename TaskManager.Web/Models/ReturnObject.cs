@@ -7,7 +7,7 @@ namespace TaskManager.Web.Models
 {
     public class ReturnObject
     {
-        public object jwt { get; set; }
+        public object token { get; set; }
         public string otpCode { get; set; }
         public string message { get; set; }
         public string role { get; set; }

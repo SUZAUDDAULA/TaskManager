@@ -47,7 +47,7 @@ namespace TaskManager.Web.Api
 
                     var obj = new ReturnObject
                     {
-                        jwt = jwt.Replace("\"", ""),
+                        token = jwt.Replace("\"", ""),
                         userInfo = user,
                         role = roles.FirstOrDefault(),
                         //employeeData = employee
@@ -68,6 +68,14 @@ namespace TaskManager.Web.Api
             }
             
 
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return Ok(true);
         }
 
     }

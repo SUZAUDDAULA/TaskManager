@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskManager.DAL.Entity.Master;
+using TaskManager.DAL.Entity.TaskData;
 using TaskManager.DAL.Models.MasterData;
+using TaskManager.Domain.ProjectService.interfaces;
 using TaskManager.Domain.RepositoryService.Interfaces;
 
 namespace TaskManager.Web.Controllers
@@ -14,10 +16,12 @@ namespace TaskManager.Web.Controllers
     public class ProjectsController : Controller
     {
         private readonly IRepository<Project> _projectRepo;
+        private readonly IProjectService _projectService;
 
-        public ProjectsController(IRepository<Project> projectRepo)
+        public ProjectsController(IRepository<Project> projectRepo, IProjectService projectService)
         {
             _projectRepo = projectRepo;
+            _projectService = projectService;
         }
 
         public IActionResult Index()
@@ -35,7 +39,7 @@ namespace TaskManager.Web.Controllers
 
         [HttpPost]
         [Route("api/masterData/SaveProject")]
-        public IActionResult SaveProject([FromBody]ProjectModel model)
+        public async Task<IActionResult> SaveProject([FromBody]ProjectModel model)
         {
             try
             {
@@ -44,10 +48,11 @@ namespace TaskManager.Web.Controllers
                     Id = (int)model.Id,
                     projectCode=model.projectCode,
                     projectName = model.projectName,
-                    startDate = model.startDate,
-                    teamSize = model.teamSize
+                    startDate = Convert.ToDateTime(model.startDate),
+                    teamSize = model.teamSize,
+                    clientLocationId=model.clientLocationId
                 };
-                _projectRepo.Insert(project);
+                await _projectService.SaveProject(project);
                 return Json(project);
             }
             catch(Exception ex)
@@ -59,7 +64,7 @@ namespace TaskManager.Web.Controllers
 
         [HttpPut]
         [Route("api/masterData/UpdateProject")]
-        public IActionResult UpdateProject([FromBody] ProjectModel model)
+        public async Task<IActionResult> UpdateProject([FromBody] ProjectModel model)
         {
             try
             {
@@ -68,11 +73,12 @@ namespace TaskManager.Web.Controllers
                     Id = (int)model.Id,
                     projectCode=model.projectCode,
                     projectName = model.projectName,
-                    startDate = model.startDate,
+                    startDate = Convert.ToDateTime(model.startDate),
                     teamSize = model.teamSize
                 };
                 _projectRepo.Update(project);
-                return Json(project);
+                var projectInfo = await _projectService.GetProjectDetailsInfoById((int)model.Id);
+                return Json(projectInfo);
             }
             catch (Exception ex)
             {
@@ -100,20 +106,20 @@ namespace TaskManager.Web.Controllers
 
         [HttpGet]
         [Route("api/projectss/Search/{searchBy}/{searchText}")]
-        public List<Project> Search(string searchBy,string searchText)
+        public async Task<IEnumerable<ProjectModel>> Search(string searchBy,string searchText)
         {
             try
             {
-                List<Project> projects = null;
-                if(searchBy== "ProjectCode")
-                    projects = _projectRepo.GetAll().Where(x => x.projectCode.ToString().Contains(searchText)).ToList();
-                else if (searchBy=="ProjectName")
-                    projects= _projectRepo.GetAll().Where(x => x.projectName.ToString().Contains(searchText)).ToList();
-                else if(searchBy=="StartDate")
-                    projects = _projectRepo.GetAll().Where(x => x.startDate.ToString().Contains(searchText)).ToList();
-                else if (searchBy == "TeamSize")
-                    projects = _projectRepo.GetAll().Where(x => x.teamSize.ToString().Contains(searchText)).ToList();
-
+                IEnumerable<ProjectModel> projects = null;
+                //if(searchBy== "ProjectCode")
+                //    projects = _projectRepo.GetAll().Where(x => x.projectCode.ToString().Contains(searchText)).ToList();
+                //else if (searchBy=="ProjectName")
+                //    projects= _projectRepo.GetAll().Where(x => x.projectName.ToString().Contains(searchText)).ToList();
+                //else if(searchBy=="StartDate")
+                //    projects = _projectRepo.GetAll().Where(x => x.startDate.ToString().Contains(searchText)).ToList();
+                //else if (searchBy == "TeamSize")
+                //    projects = _projectRepo.GetAll().Where(x => x.teamSize.ToString().Contains(searchText)).ToList();
+                projects = await _projectService.GetProjectListWithFiltering(searchBy,searchText);
                 return projects;
             }
             catch (Exception ex)
