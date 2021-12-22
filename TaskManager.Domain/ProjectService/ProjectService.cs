@@ -59,6 +59,14 @@ namespace TaskManager.Domain.ProjectService
 
             return result;
         }
+
+        public async Task<Project> GetProjectDetailsInfoByCode(string code)
+        {
+            var result = await _context.Projects.Where(x => x.projectCode == code).FirstOrDefaultAsync();
+
+            return result;
+        }
+
         public async Task<IEnumerable<ProjectModel>> GetAllProjectListWithClientLocation()
         {
             var result = await _context.Projects.Include(x=>x.clientLocation)
