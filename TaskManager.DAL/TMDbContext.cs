@@ -28,6 +28,7 @@ namespace TaskManager.DAL
         public DbSet<ModuleAccessPage> ModuleAccessPages { get; set; }
         public DbSet<TMModule> TMModules { get; set; }
         public DbSet<Navbar> Navbars { get; set; }
+        public DbSet<Skill> Skills { get; set; }
         #endregion
 
         #region Master Data

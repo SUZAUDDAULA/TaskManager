@@ -33,6 +33,10 @@
 
   <ItemGroup>
     <Folder Include="Areas\" />
+    <Folder Include="Areas\Auth\Controllers\" />
+    <Folder Include="Areas\Auth\Data\" />
+    <Folder Include="Areas\Auth\Models\" />
+    <Folder Include="Areas\Auth\Views\" />
   </ItemGroup>
 
 </Project>
