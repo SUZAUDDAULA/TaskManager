@@ -115,11 +115,11 @@ namespace TaskManager.Web
                     x.TokenValidationParameters = tokenValidationParameters;
                 });
 
-            //services.AddAntiforgery(forg =>
-            //{
-            //    forg.Cookie.Name = "XSRF-Cookie-TOKEN";
-            //    forg.HeaderName = "X-XSRF-TOKEN";
-            //});
+            services.AddAntiforgery(forg =>
+            {
+                forg.Cookie.Name = "XSRF-Cookie-TOKEN";
+                forg.HeaderName = "X-XSRF-TOKEN";
+            });
             #endregion
 
             #region Auth Related Settings
@@ -141,7 +141,7 @@ namespace TaskManager.Web
                 // User settings.
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-                options.User.RequireUniqueEmail = false;
+                options.User.RequireUniqueEmail = true;
             });
             
             #endregion

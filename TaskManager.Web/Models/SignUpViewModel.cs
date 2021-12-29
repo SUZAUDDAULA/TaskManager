@@ -8,13 +8,13 @@ namespace TaskManager.Web.Models
 {
     public class SignUpViewModel
     {
-        public PersonFullName personFullName { get; set; }
+        public PersonFullName personName { get; set; }
         public string email { get; set; }
         public string mobile { get; set; }
         public string dateOfBirth { get; set; }
         public string password { get; set; }
         public string gender { get; set; }
-        public string countryId { get; set; }
+        public int? countryId { get; set; }
         public bool receiveNewsLetters { get; set; }
         public List<Skill> skills { get; set; }
     }
