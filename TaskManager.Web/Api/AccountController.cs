@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -127,6 +128,15 @@ namespace TaskManager.Web.Api
             }
             
 
+        }
+
+        //api/Account/GetUserByEmail/{email}
+        //[Route("api/Account/GetUserByEmail/{email}")]
+        [HttpGet]
+        public async Task<IActionResult> GetUserByEmail(string Email)
+        {
+            var user = await userInfoes.GetUserInfoByEmail(Email);
+            return Ok(user);
         }
 
         [HttpPost]

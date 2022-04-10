@@ -23,6 +23,11 @@ namespace TaskManager.Domain.AuthService
             return await _context.Users.Where(x => x.UserName == userName).FirstOrDefaultAsync();
         }
 
+        public async Task<ApplicationUser> GetUserInfoByEmail(string email)
+        {
+            return await _context.Users.Where(x => x.Email == email).FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<AspNetUsersViewModel>> GetUserInfoList()
         {
             var result =await (from a in _context.Users

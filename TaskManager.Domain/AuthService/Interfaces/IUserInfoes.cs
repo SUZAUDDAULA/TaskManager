@@ -11,6 +11,7 @@ namespace TaskManager.Domain.AuthService.Interfaces
     public interface IUserInfoes
     {
         Task<ApplicationUser> GetUserInfoByUser(string userName);
+        Task<ApplicationUser> GetUserInfoByEmail(string email);
         Task<IEnumerable<AspNetUsersViewModel>> GetUserInfoList();
         Task<IEnumerable<TMModule>> GetAllFAMSModule();
         Task<bool> DeleteRoleById(string Id);
