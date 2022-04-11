@@ -212,10 +212,13 @@ DashboardService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProjectComponent", function() { return ProjectComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
+/* harmony import */ var _services_projects_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/projects.service */ "CoJz");
+
 
 
 class ProjectComponent {
-    constructor() {
+    constructor(projectsService) {
+        this.projectsService = projectsService;
         this.editClick = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         this.deleteClick = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
         // tslint:disable-next-line:no-inferrable-types
@@ -229,13 +232,9 @@ class ProjectComponent {
     onDeleteClick(event, i) {
         this.deleteClick.emit({ event, i });
     }
-    // tslint:disable-next-line:typedef
-    toggleDetails() {
-        this.hideDetails = !this.hideDetails;
-    }
 }
-ProjectComponent.ɵfac = function ProjectComponent_Factory(t) { return new (t || ProjectComponent)(); };
-ProjectComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ProjectComponent, selectors: [["app-project"]], inputs: { project: ["currentProject", "project"], i: ["recordIndex", "i"] }, outputs: { editClick: "editClick", deleteClick: "deleteClick" }, decls: 34, vars: 6, consts: [[1, "card", "card-primary"], [1, "card-header"], [1, "card-body"], [1, "table", "table-borderless"], [1, "card-footer"], ["data-toggle", "modal", "data-target", "#editModal", 1, "btn", "btn-info", 3, "click"], ["data-toggle", "modal", "data-target", "#deleteModal", 1, "btn", "btn-warning", 3, "click"]], template: function ProjectComponent_Template(rf, ctx) { if (rf & 1) {
+ProjectComponent.ɵfac = function ProjectComponent_Factory(t) { return new (t || ProjectComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_projects_service__WEBPACK_IMPORTED_MODULE_1__["ProjectsService"])); };
+ProjectComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ProjectComponent, selectors: [["app-project"]], inputs: { project: ["currentProject", "project"], i: ["recordIndex", "i"] }, outputs: { editClick: "editClick", deleteClick: "deleteClick" }, decls: 34, vars: 7, consts: [[1, "card", "card-primary"], [1, "card-header"], [1, "card-body"], [1, "table", "table-borderless", 3, "hidden"], [1, "card-footer"], ["data-toggle", "modal", "data-target", "#editModal", 1, "btn", "btn-info", 3, "click"], ["data-toggle", "modal", "data-target", "#deleteModal", 1, "btn", "btn-warning", 3, "click"]], template: function ProjectComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div");
@@ -298,7 +297,9 @@ ProjectComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineC
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("#", ctx.project.projectCode, "");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.project.projectName);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("hidden", ctx.projectsService.hideDetails);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.project.startDate);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx.project.teamSize);
@@ -314,7 +315,7 @@ ProjectComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineC
                 templateUrl: './project.component.html',
                 styleUrls: ['./project.component.scss']
             }]
-    }], function () { return []; }, { project: [{
+    }], function () { return [{ type: _services_projects_service__WEBPACK_IMPORTED_MODULE_1__["ProjectsService"] }]; }, { project: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"],
             args: ['currentProject']
         }], i: [{
@@ -1161,6 +1162,12 @@ __webpack_require__.r(__webpack_exports__);
 class ProjectsService {
     constructor(httpClient) {
         this.httpClient = httpClient;
+        // tslint:disable-next-line:no-inferrable-types
+        this.hideDetails = false;
+    }
+    // tslint:disable-next-line:typedef
+    toggleDetails() {
+        this.hideDetails = !this.hideDetails;
     }
     getAllProjects() {
         return this.httpClient.get('/api/masterData/project', { responseType: 'json' })
@@ -1364,7 +1371,6 @@ __webpack_require__.r(__webpack_exports__);
 
 const _c0 = ["newForm"];
 const _c1 = ["editForm"];
-const _c2 = ["prj"];
 function ProjectsComponent_i_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "i", 101);
 } }
@@ -1521,7 +1527,7 @@ function ProjectsComponent_span_198_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "Support projects are not allowed at mymensingh");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
-const _c3 = function (a0, a1) { return { "is-invalid": a0, "is-valid": a1 }; };
+const _c2 = function (a0, a1) { return { "is-invalid": a0, "is-valid": a1 }; };
 class ProjectsComponent {
     constructor(projectService, clientLocationService) {
         this.projectService = projectService;
@@ -1646,21 +1652,20 @@ class ProjectsComponent {
             console.log(error);
         });
     }
+    // tslint:disable-next-line:typedef
     onHideShowDetails(event) {
-        this.prj.toggleDetails();
+        this.projectService.toggleDetails();
     }
 }
 ProjectsComponent.ɵfac = function ProjectsComponent_Factory(t) { return new (t || ProjectsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_projects_service__WEBPACK_IMPORTED_MODULE_3__["ProjectsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_client_location_service__WEBPACK_IMPORTED_MODULE_4__["ClientLocationService"])); };
 ProjectsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: ProjectsComponent, selectors: [["app-projects"]], viewQuery: function ProjectsComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_c0, true);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_c1, true);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_c2, true);
     } if (rf & 2) {
         let _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.newForm = _t.first);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.editForm = _t.first);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.prj = _t.first);
-    } }, decls: 231, vars: 91, consts: [["class", "fa fa-circle-o-notch fa-spin", "style", "font-size: 34px;", 4, "ngIf"], [1, "row"], [1, "col-9", "mx-auto"], [1, "from-group", "form-row"], [1, "col-2"], ["data-toggle", "modal", "data-target", "#newModal", 1, "btn", "btn-primary", 3, "click"], [1, "btn", "btn-secondary", 3, "click"], ["for", "drpSearchBy", 1, "col-form-label", "col-1"], [1, "col-3"], ["id", "drpSearchBy", "name", "SearchBy", 1, "form-control", 3, "ngModel", "ngModelChange"], ["value", "ProjectCode"], ["value", "ProjectName"], ["value", "StartDate"], ["value", "TeamSize"], ["for", "txtSearchText", 1, "col-form-label", "col-1"], [1, "input-group"], ["type", "text", "id", "txtSearchText", "name", "SearchText", 1, "form-control", 3, "ngModel", "ngModelChange"], [1, "input-group-append", 3, "click"], [1, "input-group-text"], [1, "fa", "fa-search"], [2, "height", "10px"], [1, "col-xl-12", "mx-auto"], ["class", "col-md-4", 4, "ngFor", "ngForOf"], ["novalidate", "novalidate", "appClientLocationStatusValidator", ""], ["newForm", "ngForm"], ["role", "dialog", "id", "newModal", 1, "modal"], [1, "modal-dialog"], [1, "modal-content"], [1, "modal-header", "bg-primary", "text-white"], [1, "modal-title"], ["type", "button", "data-dismiss", "modal", 1, "close"], [1, "modal-body"], [1, "form-group", "row"], ["for", "txtNewProjectCode", 1, "col-sm-4"], [1, "col-sm-8"], ["type", "hidden", "id", "txtNewProjectId", "name", "Id", 3, "ngModel", "ngModelChange"], ["id", "txtNewProjectCode", "name", "projectCode", "type", "text", "placeholder", "Project Code", "required", "required", "pattern", "^[0-9]*$", "appProjectCodeUniqueValidator", "", 1, "form-control", 2, "width", "150px", 3, "ngModel", "ngClass", "ngModelChange"], ["newProjectId", "ngModel"], ["class", "text-danger", 4, "ngIf"], ["for", "txtNewProjectName", 1, "col-sm-4"], ["id", "txtNewProjectName", "name", "projectName", "type", "text", "placeholder", "Project Name", "minlength", "3", "maxlength", "30", "required", "required", "pattern", "^[A-Za-z0-9 /-]*$", 1, "form-control", 3, "ngModel", "ngClass", "ngModelChange"], ["newProjectName", "ngModel"], ["for", "txtNewStartDate", 1, "col-sm-4"], ["id", "txtNewStartDate", "name", "startDate", "type", "date", "placeholder", "Date of Start", "required", "required", 1, "form-control", 2, "width", "200px", 3, "ngModel", "ngClass", "ngModelChange"], ["newStartDate", "ngModel"], ["for", "txtTeamSize", 1, "col-sm-4"], ["id", "txtTeamSize", "name", "teamSize", "type", "text", "placeholder", "Team Size", "appTeamSizeValidator", "5", "pattern", "^[0-9]*$", "maxlength", "7", 1, "form-control", 2, "width", "200px", 3, "ngModel", "ngClass", "ngModelChange"], ["newTeamSize", "ngModel"], [1, "col-sm-4", "col-form-label"], [1, "form-check"], ["type", "checkbox", "id", "chkNewActive", "value", "true", "name", "isActive", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["for", "chkNewActive", 1, "form-check-label"], [1, "form-check", "form-check-inline"], ["type", "radio", "id", "rbNewStatusInForce", "value", "In Force", "name", "status", "required", "required", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["newStatusInforce", "ngModel"], ["for", "rbNewStatusInForce", 1, "form-check-label"], ["type", "radio", "id", "rbNewStatusSupport", "value", "Support", "name", "status", "required", "required", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["newStatusSupport", "ngModel"], ["for", "rbNewStatusSupport", 1, "form-check-label"], ["for", "", 1, "col-sm-4", "col-form-label"], ["name", "ClientLocation", "id", "drpNewClientLocation", "required", "required", 1, "form-control", 3, "ngModel", "ngClass", "ngModelChange"], ["newClientLocationId", "ngModel"], [3, "value", 4, "ngFor", "ngForOf"], [1, "modal-footer"], ["data-dismiss", "modal", "id", "newFormCancel", 1, "btn", "btn-warning"], ["data-dismiss", "modal", 1, "btn", "btn-success", 3, "click"], ["editForm", "ngForm"], ["role", "dialog", "id", "editModal", 1, "modal"], [1, "modal-header"], ["for", "txtEditProjectCode", 1, "col-sm-4"], ["type", "hidden", "id", "txtEditProjectId", "name", "Id", 3, "ngModel", "ngModelChange"], ["id", "txtEditProjectCode", "name", "projectCode", "type", "text", "placeholder", "Project Code", "disabled", "disabled", "required", "required", "pattern", "^[0-9]*$", "appProjectCodeUniqueValidator", "", 1, "form-control-plain-text", 2, "width", "150px", 3, "ngModel", "ngClass", "ngModelChange"], ["editProjectId", "ngModel"], ["for", "txtEditProjectName", 1, "col-sm-4"], ["id", "txtEditProjectName", "name", "projectName", "type", "text", "placeholder", "Project Name", "required", "required", "pattern", "^[A-Za-z0-9 /-]*$", 1, "form-control", 3, "ngModel", "ngClass", "ngModelChange"], ["editProjectName", "ngModel"], ["for", "txtEditStartDate", 1, "col-sm-4"], ["id", "txtEditStartDate", "name", "startDate", "type", "date", "placeholder", "Date of Start", "required", "required", 1, "form-control", 2, "width", "200px", 3, "ngModel", "ngClass", "ngModelChange"], ["editStartDate", "ngModel"], ["for", "txtEditTeamSize", 1, "col-sm-4"], ["id", "txtEditTeamSize", "name", "teamSize", "type", "text", "placeholder", "Team Size", "appTeamSizeValidator", "5", "pattern", "^[0-9]*$", "maxlength", "7", 1, "form-control", 2, "width", "200px", 3, "ngModel", "ngClass", "ngModelChange"], ["editTeamSize", "ngModel"], ["type", "checkbox", "id", "chkEditActive", "value", "true", "name", "isActive", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["for", "chkEditActive", 1, "form-check-label"], ["type", "radio", "id", "rbEditStatusInForce", "value", "In Force", "name", "status", "required", "required", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["editStatusInforce", "ngModel"], ["for", "rbEditStatusInForce", 1, "form-check-label"], ["type", "radio", "id", "rbEditStatusSupport", "value", "Support", "name", "status", "required", "required", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["editStatusSupport", "ngModel"], ["for", "rbEditStatusSupport", 1, "form-check-label"], ["name", "ClientLocation", "id", "drpEditClientLocation", "required", "required", 1, "form-control", 3, "ngModel", "ngClass", "ngModelChange"], ["editClientLocationId", "ngModel"], ["data-dismiss", "modal", "id", "editFormCancel", 1, "btn", "btn-warning"], ["role", "dialog", "id", "deleteModal", 1, "modal"], ["for", "txtDelProjectCode", 1, "col-sm-2"], [1, "col-sm-10"], ["type", "hidden", "id", "txtDelProjectId", "name", "Id", 3, "ngModel", "ngModelChange"], ["id", "txtDelProjectCode", "name", "projectCode", "type", "text", "placeholder", "Project Code", "disabled", "disabled", 1, "form-control-plain-text", 2, "width", "150px", 3, "ngModel", "ngModelChange"], ["for", "txtDelProjectName", 1, "col-sm-2"], ["id", "txtDelProjectName", "name", "projectName", "type", "text", "placeholder", "Project Name", "disabled", "disabled", 1, "form-control-plain-text", 3, "ngModel", "ngModelChange"], ["data-dismiss", "modal", 1, "btn", "btn-warning"], [1, "fa", "fa-circle-o-notch", "fa-spin", 2, "font-size", "34px"], [1, "col-md-4"], [3, "currentProject", "recordIndex", "editClick", "deleteClick"], [1, "text-danger"], [3, "value"]], template: function ProjectsComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 231, vars: 91, consts: [["class", "fa fa-circle-o-notch fa-spin", "style", "font-size: 34px;", 4, "ngIf"], [1, "row"], [1, "col-12", "mx-auto"], [1, "from-group", "form-row"], [1, "col-2"], ["data-toggle", "modal", "data-target", "#newModal", 1, "btn", "btn-primary", 3, "click"], [1, "btn", "btn-secondary", 3, "click"], ["for", "drpSearchBy", 1, "col-form-label", "col-1"], [1, "col-3"], ["id", "drpSearchBy", "name", "SearchBy", 1, "form-control", 3, "ngModel", "ngModelChange"], ["value", "ProjectCode"], ["value", "ProjectName"], ["value", "StartDate"], ["value", "TeamSize"], ["for", "txtSearchText", 1, "col-form-label", "col-1"], [1, "input-group"], ["type", "text", "id", "txtSearchText", "name", "SearchText", 1, "form-control", 3, "ngModel", "ngModelChange"], [1, "input-group-append", 3, "click"], [1, "input-group-text"], [1, "fa", "fa-search"], [2, "height", "10px"], [1, "col-xl-12", "mx-auto"], ["class", "col-md-4", 4, "ngFor", "ngForOf"], ["novalidate", "novalidate", "appClientLocationStatusValidator", ""], ["newForm", "ngForm"], ["role", "dialog", "id", "newModal", 1, "modal"], [1, "modal-dialog"], [1, "modal-content"], [1, "modal-header", "bg-primary", "text-white"], [1, "modal-title"], ["type", "button", "data-dismiss", "modal", 1, "close"], [1, "modal-body"], [1, "form-group", "row"], ["for", "txtNewProjectCode", 1, "col-sm-4"], [1, "col-sm-8"], ["type", "hidden", "id", "txtNewProjectId", "name", "Id", 3, "ngModel", "ngModelChange"], ["id", "txtNewProjectCode", "name", "projectCode", "type", "text", "placeholder", "Project Code", "required", "required", "pattern", "^[0-9]*$", "appProjectCodeUniqueValidator", "", 1, "form-control", 2, "width", "150px", 3, "ngModel", "ngClass", "ngModelChange"], ["newProjectId", "ngModel"], ["class", "text-danger", 4, "ngIf"], ["for", "txtNewProjectName", 1, "col-sm-4"], ["id", "txtNewProjectName", "name", "projectName", "type", "text", "placeholder", "Project Name", "minlength", "3", "maxlength", "30", "required", "required", "pattern", "^[A-Za-z0-9 /-]*$", 1, "form-control", 3, "ngModel", "ngClass", "ngModelChange"], ["newProjectName", "ngModel"], ["for", "txtNewStartDate", 1, "col-sm-4"], ["id", "txtNewStartDate", "name", "startDate", "type", "date", "placeholder", "Date of Start", "required", "required", 1, "form-control", 2, "width", "200px", 3, "ngModel", "ngClass", "ngModelChange"], ["newStartDate", "ngModel"], ["for", "txtTeamSize", 1, "col-sm-4"], ["id", "txtTeamSize", "name", "teamSize", "type", "text", "placeholder", "Team Size", "appTeamSizeValidator", "5", "pattern", "^[0-9]*$", "maxlength", "7", 1, "form-control", 2, "width", "200px", 3, "ngModel", "ngClass", "ngModelChange"], ["newTeamSize", "ngModel"], [1, "col-sm-4", "col-form-label"], [1, "form-check"], ["type", "checkbox", "id", "chkNewActive", "value", "true", "name", "isActive", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["for", "chkNewActive", 1, "form-check-label"], [1, "form-check", "form-check-inline"], ["type", "radio", "id", "rbNewStatusInForce", "value", "In Force", "name", "status", "required", "required", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["newStatusInforce", "ngModel"], ["for", "rbNewStatusInForce", 1, "form-check-label"], ["type", "radio", "id", "rbNewStatusSupport", "value", "Support", "name", "status", "required", "required", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["newStatusSupport", "ngModel"], ["for", "rbNewStatusSupport", 1, "form-check-label"], ["for", "", 1, "col-sm-4", "col-form-label"], ["name", "ClientLocation", "id", "drpNewClientLocation", "required", "required", 1, "form-control", 3, "ngModel", "ngClass", "ngModelChange"], ["newClientLocationId", "ngModel"], [3, "value", 4, "ngFor", "ngForOf"], [1, "modal-footer"], ["data-dismiss", "modal", "id", "newFormCancel", 1, "btn", "btn-warning"], ["data-dismiss", "modal", 1, "btn", "btn-success", 3, "click"], ["editForm", "ngForm"], ["role", "dialog", "id", "editModal", 1, "modal"], [1, "modal-header"], ["for", "txtEditProjectCode", 1, "col-sm-4"], ["type", "hidden", "id", "txtEditProjectId", "name", "Id", 3, "ngModel", "ngModelChange"], ["id", "txtEditProjectCode", "name", "projectCode", "type", "text", "placeholder", "Project Code", "disabled", "disabled", "required", "required", "pattern", "^[0-9]*$", "appProjectCodeUniqueValidator", "", 1, "form-control-plain-text", 2, "width", "150px", 3, "ngModel", "ngClass", "ngModelChange"], ["editProjectId", "ngModel"], ["for", "txtEditProjectName", 1, "col-sm-4"], ["id", "txtEditProjectName", "name", "projectName", "type", "text", "placeholder", "Project Name", "required", "required", "pattern", "^[A-Za-z0-9 /-]*$", 1, "form-control", 3, "ngModel", "ngClass", "ngModelChange"], ["editProjectName", "ngModel"], ["for", "txtEditStartDate", 1, "col-sm-4"], ["id", "txtEditStartDate", "name", "startDate", "type", "date", "placeholder", "Date of Start", "required", "required", 1, "form-control", 2, "width", "200px", 3, "ngModel", "ngClass", "ngModelChange"], ["editStartDate", "ngModel"], ["for", "txtEditTeamSize", 1, "col-sm-4"], ["id", "txtEditTeamSize", "name", "teamSize", "type", "text", "placeholder", "Team Size", "appTeamSizeValidator", "5", "pattern", "^[0-9]*$", "maxlength", "7", 1, "form-control", 2, "width", "200px", 3, "ngModel", "ngClass", "ngModelChange"], ["editTeamSize", "ngModel"], ["type", "checkbox", "id", "chkEditActive", "value", "true", "name", "isActive", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["for", "chkEditActive", 1, "form-check-label"], ["type", "radio", "id", "rbEditStatusInForce", "value", "In Force", "name", "status", "required", "required", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["editStatusInforce", "ngModel"], ["for", "rbEditStatusInForce", 1, "form-check-label"], ["type", "radio", "id", "rbEditStatusSupport", "value", "Support", "name", "status", "required", "required", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["editStatusSupport", "ngModel"], ["for", "rbEditStatusSupport", 1, "form-check-label"], ["name", "ClientLocation", "id", "drpEditClientLocation", "required", "required", 1, "form-control", 3, "ngModel", "ngClass", "ngModelChange"], ["editClientLocationId", "ngModel"], ["data-dismiss", "modal", "id", "editFormCancel", 1, "btn", "btn-warning"], ["role", "dialog", "id", "deleteModal", 1, "modal"], ["for", "txtDelProjectCode", 1, "col-sm-2"], [1, "col-sm-10"], ["type", "hidden", "id", "txtDelProjectId", "name", "Id", 3, "ngModel", "ngModelChange"], ["id", "txtDelProjectCode", "name", "projectCode", "type", "text", "placeholder", "Project Code", "disabled", "disabled", 1, "form-control-plain-text", 2, "width", "150px", 3, "ngModel", "ngModelChange"], ["for", "txtDelProjectName", 1, "col-sm-2"], ["id", "txtDelProjectName", "name", "projectName", "type", "text", "placeholder", "Project Name", "disabled", "disabled", 1, "form-control-plain-text", 3, "ngModel", "ngModelChange"], ["data-dismiss", "modal", 1, "btn", "btn-warning"], [1, "fa", "fa-circle-o-notch", "fa-spin", 2, "font-size", "34px"], [1, "col-md-4"], [3, "currentProject", "recordIndex", "editClick", "deleteClick"], [1, "text-danger"], [3, "value"]], template: function ProjectsComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "h1");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, " Projects ");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, ProjectsComponent_i_2_Template, 1, 0, "i", 0);
@@ -2071,7 +2076,7 @@ ProjectsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](17);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.newProject.Id);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.newProject.projectCode)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](61, _c3, _r3.invalid && (_r3.dirty || _r3.touched || _r2.submitted), _r3.valid && (_r3.dirty || _r3.touched || _r2.submitted)));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.newProject.projectCode)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](61, _c2, _r3.invalid && (_r3.dirty || _r3.touched || _r2.submitted), _r3.valid && (_r3.dirty || _r3.touched || _r2.submitted)));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _r3.invalid && (_r3.dirty || _r3.touched || _r2.submitted) && (_r3.errors == null ? null : _r3.errors.required));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
@@ -2079,7 +2084,7 @@ ProjectsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _r3.invalid && (_r3.dirty || _r3.touched || _r2.submitted) && (_r3.errors == null ? null : _r3.errors.uniqueProjectCode));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.newProject.projectName)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](64, _c3, _r7.invalid && (_r7.dirty || _r7.touched || _r2.submitted), _r7.valid && (_r7.dirty || _r7.touched || _r2.submitted)));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.newProject.projectName)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](64, _c2, _r7.invalid && (_r7.dirty || _r7.touched || _r2.submitted), _r7.valid && (_r7.dirty || _r7.touched || _r2.submitted)));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _r7.invalid && (_r7.dirty || _r7.touched || _r2.submitted) && (_r7.errors == null ? null : _r7.errors.required));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
@@ -2087,11 +2092,11 @@ ProjectsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _r7.invalid && (_r7.dirty || _r7.touched || _r2.submitted) && (_r7.errors == null ? null : _r7.errors.minlength));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.newProject.startDate)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](67, _c3, _r11.invalid && (_r11.dirty || _r11.touched || _r2.submitted), _r11.valid && (_r11.dirty || _r11.touched || _r2.submitted)));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.newProject.startDate)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](67, _c2, _r11.invalid && (_r11.dirty || _r11.touched || _r2.submitted), _r11.valid && (_r11.dirty || _r11.touched || _r2.submitted)));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _r11.invalid && (_r11.dirty || _r11.touched || _r2.submitted) && (_r11.errors == null ? null : _r11.errors.required));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.newProject.teamSize)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](70, _c3, _r13.invalid && (_r13.dirty || _r13.touched || _r2.submitted), _r13.valid && (_r13.dirty || _r13.touched || _r2.submitted)));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.newProject.teamSize)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](70, _c2, _r13.invalid && (_r13.dirty || _r13.touched || _r2.submitted), _r13.valid && (_r13.dirty || _r13.touched || _r2.submitted)));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _r13.invalid && (_r13.dirty || _r13.touched || _r2.submitted) && (_r13.errors == null ? null : _r13.errors.maxlength));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
@@ -2105,7 +2110,7 @@ ProjectsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _r16.invalid && (_r16.dirty || _r16.touched || _r2.submitted) && (_r16.errors == null ? null : _r16.errors.required));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.newProject.clientLocationId)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](73, _c3, _r19.invalid && (_r19.dirty || _r19.touched || _r2.submitted), _r19.valid && (_r19.dirty || _r19.touched || _r2.submitted)));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.newProject.clientLocationId)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](73, _c2, _r19.invalid && (_r19.dirty || _r19.touched || _r2.submitted), _r19.valid && (_r19.dirty || _r19.touched || _r2.submitted)));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.clientLocations);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
@@ -2115,7 +2120,7 @@ ProjectsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](22);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.editProject.Id);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.editProject.projectCode)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](76, _c3, _r24.invalid && (_r24.dirty || _r24.touched || _r2.submitted), _r24.valid && (_r24.dirty || _r24.touched || _r23.submitted)));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.editProject.projectCode)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](76, _c2, _r24.invalid && (_r24.dirty || _r24.touched || _r2.submitted), _r24.valid && (_r24.dirty || _r24.touched || _r23.submitted)));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _r24.invalid && (_r24.dirty || _r24.touched || _r23.submitted) && (_r24.errors == null ? null : _r24.errors.required));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
@@ -2123,7 +2128,7 @@ ProjectsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _r24.invalid && (_r24.dirty || _r24.touched || _r23.submitted) && (_r24.errors == null ? null : _r24.errors.uniqueProjectCode));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.editProject.projectName)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](79, _c3, _r28.invalid && (_r28.dirty || _r28.touched || _r23.submitted), _r28.valid && (_r28.dirty || _r28.touched || _r23.submitted)));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.editProject.projectName)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](79, _c2, _r28.invalid && (_r28.dirty || _r28.touched || _r23.submitted), _r28.valid && (_r28.dirty || _r28.touched || _r23.submitted)));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _r28.invalid && (_r28.dirty || _r28.touched || _r23.submitted) && (_r28.errors == null ? null : _r28.errors.required));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
@@ -2131,11 +2136,11 @@ ProjectsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _r28.invalid && (_r28.dirty || _r28.touched || _r23.submitted) && (_r28.errors == null ? null : _r28.errors.minlength));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.editProject.startDate)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](82, _c3, _r32.invalid && (_r32.dirty || _r32.touched || _r23.submitted), _r32.valid && (_r32.dirty || _r32.touched || _r23.submitted)));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.editProject.startDate)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](82, _c2, _r32.invalid && (_r32.dirty || _r32.touched || _r23.submitted), _r32.valid && (_r32.dirty || _r32.touched || _r23.submitted)));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _r32.invalid && (_r32.dirty || _r32.touched || _r23.submitted) && (_r32.errors == null ? null : _r32.errors.required));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.editProject.teamSize)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](85, _c3, _r34.invalid && (_r34.dirty || _r34.touched || _r23.submitted), _r34.valid && (_r34.dirty || _r34.touched || _r23.submitted)));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.editProject.teamSize)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](85, _c2, _r34.invalid && (_r34.dirty || _r34.touched || _r23.submitted), _r34.valid && (_r34.dirty || _r34.touched || _r23.submitted)));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _r34.invalid && (_r34.dirty || _r34.touched || _r23.submitted) && (_r34.errors == null ? null : _r34.errors.maxlength));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
@@ -2149,7 +2154,7 @@ ProjectsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", _r37.invalid && (_r37.dirty || _r37.touched || _r23.submitted) && (_r37.errors == null ? null : _r37.errors.required));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.editProject.clientLocationId)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](88, _c3, _r40.invalid && (_r40.dirty || _r40.touched || _r23.submitted), _r40.valid && (_r40.dirty || _r40.touched || _r23.submitted)));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.editProject.clientLocationId)("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpureFunction2"](88, _c2, _r40.invalid && (_r40.dirty || _r40.touched || _r23.submitted), _r40.valid && (_r40.dirty || _r40.touched || _r23.submitted)));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.clientLocations);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
@@ -2176,9 +2181,6 @@ ProjectsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
         }], editForm: [{
             type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
             args: ['editForm']
-        }], prj: [{
-            type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"],
-            args: ['prj']
         }] }); })();
 
 
