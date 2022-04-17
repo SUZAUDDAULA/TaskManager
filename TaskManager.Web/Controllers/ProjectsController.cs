@@ -129,6 +129,22 @@ namespace TaskManager.Web.Controllers
         }
 
         [HttpGet]
+        [Route("api/Projects/GetPojectInfoByProjectId/{projectId}")]
+        public async Task<IActionResult> GetPojectInfoByProjectId(int projectId)
+        {
+            try
+            {
+                var project = await _projectService.GetProjectDetailsInfoById(projectId);
+                return Ok(project);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        [HttpGet]
         [Route("api/projectss/Search/{searchBy}/{searchText}")]
         public async Task<IEnumerable<ProjectModel>> Search(string searchBy,string searchText)
         {
