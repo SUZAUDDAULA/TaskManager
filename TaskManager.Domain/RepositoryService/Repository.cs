@@ -52,5 +52,22 @@ namespace TaskManager.Domain.RepositoryService
             entities.Remove(entity);
             context.SaveChanges();
         }
+
+        public IEnumerable<T> GetByFiltering(Func<T, bool> filter = null)
+        {
+            if (filter is null) return entities.AsEnumerable();
+
+            var filteredList = new List<T>();
+            foreach (var entity in entities)
+            {
+                if (filter(entity))
+                {
+                    filteredList.Add(entity);
+                }
+            }
+
+            return filteredList.AsEnumerable();
+        }
+
     }
 }
